@@ -1,0 +1,333 @@
+<!--
+Warrior Gym - Bolton
+Single-file static HTML (copy-paste to GitHub Pages)
+Instructions:
+1) Put your gym photos in a folder `assets/` next to this file and name them gallery1.jpg, gallery2.jpg, gallery3.jpg, etc., or update the <img> src paths below.
+2) Replace logo SVG or edit text inside the <header> if you want a different wordmark.
+3) To embed an Instagram feed later, use a third-party widget or the Instagram Basic Display API.
+4) This file is intentionally static HTML/CSS/JS only. No build step required.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Warrior Gym — Bolton</title>
+  <meta name="description" content="Warrior Gym — Old school bodybuilding & strongman gym in Bolton. No-contract memberships, day passes, MMA corner, sauna and recovery room.">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#060606; /* main black */
+      --panel:#111111; /* slightly lighter */
+      --muted:#bdbdbd; /* light grey */
+      --accent:#9b9b9b;
+      --max-width:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:var(--bg);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+    }
+
+    /* subtle textured background */
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;
+      background-image:repeating-linear-gradient(135deg, rgba(255,255,255,0.01) 0 1px, transparent 1px 6px), linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.6));
+      mix-blend-mode:overlay;opacity:0.7;
+    }
+
+    a{color:var(--muted);text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+    /* header / nav */
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3));backdrop-filter: blur(4px);border-bottom:1px solid rgba(255,255,255,0.03)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+    .brand{display:flex;gap:16px;align-items:center}
+    .logo{display:flex;align-items:center;gap:10px}
+    .wordmark{font-family:Oswald, sans-serif;letter-spacing:2px;font-weight:700;font-size:20px;color:var(--muted)}
+    .tagline-small{font-size:11px;color:var(--accent);opacity:0.9}
+    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+    nav li{font-weight:600}
+    .cta{border:1px solid rgba(255,255,255,0.07);padding:8px 12px;border-radius:6px}
+
+    /* hero */
+    .hero{min-height:72vh;display:grid;place-items:center;padding:60px 0}
+    .hero-inner{display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center;width:100%;max-width:var(--max-width)}
+    .hero-copy h1{font-family:Oswald, sans-serif;font-size:44px;margin:0 0 12px;color:#fff}
+    .hero-copy p{margin:0 0 18px;color:var(--muted);font-size:16px}
+    .badges{display:flex;gap:12px;flex-wrap:wrap}
+    .badge{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:6px;font-weight:700;font-size:13px}
+
+    /* info card on right */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.03);padding:22px;border-radius:12px}
+    .card h3{margin:0 0 8px;font-family:Oswald}
+    .hours small{display:block;color:var(--accent);font-size:13px}
+
+    /* sections */
+    section{padding:64px 0}
+    h2{font-family:Oswald;margin:0 0 12px;font-size:22px}
+    p.lead{color:var(--muted);max-width:760px}
+
+    /* facilities grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .facility{background:var(--panel);padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .facility h4{margin:0 0 8px}
+    .facility p{margin:0;color:var(--accent);font-size:14px}
+
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+    .gallery img{width:100%;height:180px;object-fit:cover;border-radius:6px}
+
+    /* pricing */
+    .pricing{display:flex;gap:16px;flex-wrap:wrap}
+    .plan{flex:1 1 180px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .price{font-family:Oswald;font-size:28px;margin:8px 0}
+    .muted{color:var(--accent);font-size:14px}
+
+    /* contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .hours-list{background:var(--panel);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03)}
+
+    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);text-align:center;color:var(--accent);font-size:14px}
+
+    /* small screens */
+    @media(max-width:900px){
+      .hero-inner{grid-template-columns:1fr;}
+      .grid{grid-template-columns:1fr 1fr}
+      .gallery{grid-template-columns:1fr 1fr}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:520px){
+      nav ul{display:none}
+      .nav{padding:0 12px}
+      .gallery img{height:140px}
+      .hero-copy h1{font-size:32px}
+    }
+
+    /* subtle animate on scroll */
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* mobile nav button */
+    .menu-btn{display:none}
+    @media(max-width:520px){.menu-btn{display:block;background:transparent;border:0;color:var(--muted);font-weight:700}}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="logo">
+        <!-- Simple SVG wordmark / icon. Replace if you want a different logo. -->
+        <svg width="46" height="46" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="28" width="64" height="8" rx="2" fill="#fff" opacity="0.06" />
+          <path d="M12 40 L20 16 L28 40" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+          <circle cx="48" cy="20" r="10" stroke="#fff" stroke-width="3" fill="none" opacity="0.9"/>
+          <line x1="44" y1="20" x2="52" y2="20" stroke="#fff" stroke-width="3" opacity="0.9"/>
+        </svg>
+        <div>
+          <div class="wordmark">WARRIOR GYM</div>
+          <div class="tagline-small">Bolton — Old School Strongman & Bodybuilding</div>
+        </div>
+      </div>
+    </div>
+
+    <nav>
+      <button class="menu-btn" id="menuBtn">MENU</button>
+      <ul id="navList">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#facilities">Facilities</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="home" class="hero">
+    <div class="hero-inner container">
+      <div class="hero-copy">
+        <h1>Old school, raw, and relentless.
+        </h1>
+        <p class="lead">•ᴡᴇ ᴀʀᴇ ɴᴏᴛ ᴊᴜꜱᴛ ᴀ ɢʏᴍ, ᴡᴇ ᴀʀᴇ ᴀ ʙɪɢ ɢʏᴍ ꜰᴀᴍɪʟʏ<br>
+        •ᴏʟᴅ ꜱᴄʜᴏᴏʟ, ʙᴏᴅʏ ʙᴜɪʟᴅɪɴɢ ᴀɴᴅ ꜱᴛʀᴏɴɢᴍᴀɴ ɢʏᴍ</p>
+
+        <div class="badges">
+          <div class="badge">No contract</div>
+          <div class="badge">£5 day pass</div>
+          <div class="badge">Sauna & Recovery</div>
+        </div>
+      </div>
+
+      <aside class="card">
+        <h3>Warrior Gym — Bolton</h3>
+        <div class="muted">Brownlow Business Centre, Tennyson St, Halliwell, Bolton BL1 3DX</div>
+        <div style="height:8px"></div>
+        <div class="hours">
+          <small>Opening hours</small>
+          <div class="muted" style="margin-top:6px;">Mon–Fri: 6:00 – 22:00<br>Sat: 8:00 – 17:00<br>Sun: 9:00 – 17:00</div>
+        </div>
+        <div style="height:12px"></div>
+        <a class="cta" href="#pricing">See pricing</a>
+        <div style="height:12px"></div>
+        <a href="https://www.instagram.com/warriorgymbolton_/" target="_blank" rel="noopener" class="muted">@warriorgymbolton_ — Instagram</a>
+      </aside>
+    </div>
+  </section>
+
+  <section id="about" class="container reveal">
+    <h2>About</h2>
+    <p class="lead">Warrior gym is not just a gym but a big gym community, no cocky egos, everyone is friendly. The gym has an amazing atmosphere with music booming all day long.</p>
+  </section>
+
+  <section id="facilities" class="container reveal">
+    <h2>Facilities</h2>
+    <div class="grid" style="margin-top:14px">
+      <div class="facility">
+        <h4>Old‑school bodybuilding & strongman</h4>
+        <p>Atlas stones, log press, yokes, thick bars, heavy dumbbells — everything you need for raw strength work.</p>
+      </div>
+      <div class="facility">
+        <h4>MMA corner</h4>
+        <p>Punch bags, pads, a padded mat area — ideal for striking work and conditioning.</p>
+      </div>
+      <div class="facility">
+        <h4>Recovery & Sauna</h4>
+        <p>Recovery room available for booking and a sauna open to members.</p>
+      </div>
+    </div>
+
+    <div style="height:22px"></div>
+    <h2>Gallery</h2>
+    <p class="muted">Replace the placeholders with your photos: create an "assets" folder and drop images named gallery1.jpg, gallery2.jpg, gallery3.jpg etc.</p>
+    <div class="gallery" style="margin-top:12px">
+      <!-- Replace these src paths with your images in /assets/ folder -->
+      <img src="assets/gallery1.jpg" alt="Warrior Gym photo 1">
+      <img src="assets/gallery2.jpg" alt="Warrior Gym photo 2">
+      <img src="assets/gallery3.jpg" alt="Warrior Gym photo 3">
+    </div>
+
+  </section>
+
+  <section id="pricing" class="container reveal">
+    <h2>Pricing</h2>
+    <div class="pricing" style="margin-top:12px">
+      <div class="plan">
+        <div class="muted">Day pass</div>
+        <div class="price">£5</div>
+        <div class="muted">One‑off access — no contract.</div>
+      </div>
+
+      <div class="plan">
+        <div class="muted">Monthly membership</div>
+        <div class="price">£20 / month</div>
+        <div class="muted">Full access to gym, sauna and recovery bookable sessions.</div>
+      </div>
+
+      <div class="plan">
+        <div class="muted">Student</div>
+        <div class="price">£15 / month</div>
+        <div class="muted">Discounted rate for students. No contract.</div>
+      </div>
+    </div>
+
+    <div style="height:18px"></div>
+    <h2>Testimonials</h2>
+    <div style="margin-top:8px">
+      <blockquote style="margin:0 0 8px;padding:12px;background:rgba(255,255,255,0.02);border-left:4px solid rgba(255,255,255,0.04);border-radius:6px">“Best gym in bolton by far. Great atmosphere and a fantastic selection of equipment.” — <strong>Johnny Napalm</strong></blockquote>
+      <blockquote style="margin:12px 0 0;padding:12px;background:rgba(255,255,255,0.02);border-left:4px solid rgba(255,255,255,0.04);border-radius:6px">“One of the best gyms in bolton, friendly staff and friendly atmosphere highly recommend to everyone 💯” — <strong>Adriana Goudenhart</strong></blockquote>
+    </div>
+  </section>
+
+  <section id="contact" class="container reveal">
+    <h2>Contact & Location</h2>
+    <div class="contact-grid" style="margin-top:12px">
+
+      <div>
+        <p class="muted">Brownlow Business Centre<br>Tennyson St, Halliwell<br>Bolton BL1 3DX</p>
+        <p class="muted">Instagram: <a href="https://www.instagram.com/warriorgymbolton_/" target="_blank" rel="noopener">@warriorgymbolton_</a></p>
+
+        <div style="height:12px"></div>
+        <h4>Opening hours</h4>
+        <div class="hours-list">
+          <div>Monday – Friday: 6:00 am – 10:00 pm</div>
+          <div>Saturday: 8:00 am – 5:00 pm</div>
+          <div>Sunday: 9:00 am – 5:00 pm</div>
+        </div>
+
+        <div style="height:12px"></div>
+        <p class="muted">For bookings, enquiries or to ask about recovery room availability, message on Instagram or visit the gym.</p>
+
+        <div style="height:14px"></div>
+        <!-- Google Maps link to the address. This opens a Google Maps search for the address. -->
+        <a class="cta" href="https://www.google.com/maps/search/?api=1&query=Brownlow+Business+Centre+Tennyson+St+Halliwell+Bolton+BL1+3DX" target="_blank" rel="noopener">Open in Google Maps</a>
+      </div>
+
+      <aside class="card">
+        <h3>Quick info</h3>
+        <div class="muted">No contract — day pass £5 — monthly £20 — student £15</div>
+        <div style="height:10px"></div>
+        <h4>Address</h4>
+        <div class="muted">Brownlow Business Centre, Tennyson St, Halliwell, Bolton BL1 3DX</div>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">© <span id="year"></span> Warrior Gym — Bolton · Built for showcasing. Images: replace in /assets/</div>
+</footer>
+
+<script>
+  // set year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // mobile nav toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const navList = document.getElementById('navList');
+  menuBtn && menuBtn.addEventListener('click', ()=>{
+    if(navList.style.display === 'flex') navList.style.display = '';
+    else navList.style.display = 'flex';
+    navList.style.flexDirection = 'column';
+    navList.style.background = 'linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.95))';
+    navList.style.position = 'absolute';
+    navList.style.right = '20px';
+    navList.style.top = '72px';
+    navList.style.padding = '12px';
+    navList.style.borderRadius = '8px';
+    navList.style.border = '1px solid rgba(255,255,255,0.03)';
+  });
+
+  // reveal on scroll
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // quick gallery fallback: if images missing, replace with dark placeholder
+  document.querySelectorAll('.gallery img').forEach(img=>{
+    img.onerror = ()=>{
+      img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500"><rect width="100%" height="100%" fill="%23070b0b"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-size="20" fill="%23bdbdbd">Add your image to /assets/ and name it '+img.alt.replace(/\s/g,'_')+'</text></svg>'
+    }
+  });
+</script>
+
+</body>
+</html>
